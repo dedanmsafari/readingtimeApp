@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 class ReadingTime extends Component {
 
-
   static defaultProps = {
-      wordsPerMinute: 270
+      wordsPerMinute: 270,
+      textColor: 'blue'
   }
 
   state = {
@@ -32,8 +32,10 @@ countWords(text){
 }
 
   render() {
+    const {readTime} = this.state;
+    const minutes = readTime === 1 ? 'minute':'minutes';
     return ( 
-          <h4>Estimated Readingtime: {this.state.readTime} mins</h4>
+          <h4 style = {{color: this.props.textColor}}>Estimated Readingtime: {readTime} {minutes}</h4>
     );
   }
 }
