@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 class ReadingTime extends Component {
-//   static propTypes = {
-//       wordsPerMinute:React.propTypes.number
-//   }
+
 
   static defaultProps = {
       wordsPerMinute: 270
@@ -12,8 +10,21 @@ class ReadingTime extends Component {
     readTime: 0
 };
 
-componentDidUpdate(prevProps, prevState) {
+componentDidMount() {
+  this.updateReadingTime(this.props);
+ 
+  
+}
+componentDidUpdate(prevProps) {
+  if (this.props.text !== prevProps.text) {
+    this.updateReadingTime(this.props);
     
+  }
+}
+updateReadingTime(props){
+  const words = this.countWords(props.text)
+  const readTime = Math.round(words/props.wordsPerMinute)
+  this.setState({ readTime});
 }
 
 countWords(text){
@@ -21,12 +32,8 @@ countWords(text){
 }
 
   render() {
-    return (
-        <div className="col-md-6">
-        <div className="readtime">
-          <h4>Estimated Readingtime:</h4>
-        </div>
-      </div>
+    return ( 
+          <h4>Estimated Readingtime: {this.state.readTime} mins</h4>
     );
   }
 }
